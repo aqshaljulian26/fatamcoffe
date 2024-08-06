@@ -1,0 +1,12 @@
+RewriteEngine On
+    # Redirect semua permintaan ke HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Jika file atau directory tidak ada, tambahkan .php pada nama file
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}\.php -f
+    RewriteRule ^(.*)$ $1.php [L]
+
+    # Mengatur halaman 404 kustom
+    ErrorDocument 404 https://localhost/fatamcoffe/admin/404.php
